@@ -2,3 +2,6 @@
 SMART on FHIR…CDSS for Hospital  Discharge Decision Making. 
 
 Reece Karge - preferred email: reecekarge@gmail.com
+
+Paul Maserrat - preferred email: mazzygrad@gmail.com
+
