@@ -2,56 +2,79 @@ var model = new function() {
 	
     this.init = function(f){
     	smart.patient.read().then(function(pt) {
-    		this.ptAge= getAge(pt);
-    		this.MaleGender= getMaleGender(pt);
-    		this.WhiteRace;
-    		this.BlackRace;
-    		this.Ascites;
-    		this.CHF;
-    		this.DM;
-    		this.CANCER;
-    		this.HTN;
-    		this.EmerAdmit;
-    		this.RegAdmit;
-    		this.Procedure_i;
-    		this.IVD;
-    		this.Albumin;
-    		this.AlkPhos;
-    		this.AST/ALT;
-    		this.BUN;
-    		this.Calcium;
-    		this.Bicarb;
-    		this.Cr;
-    		this.HCT;
-    		this.INR;
-    		this.KPlus;
-    		this.Sodium;
-    		this.PLT;
-    		this.PTT;
-    		this.TBili;
-    		this.WBC;
-    		this.TransufeD;
-    		this.DxImg;
-    		this.KatzScore;
-    		this.Stool+;
-    		this.BMI;
-    		this.HR;
-    		this.O2Sat;
-    		this.RR;
-    		this.DBP;
-    		this.SBP;
-    		this.TEMP
-    		this.PainScore;
-    		this.Complexity(RVUs);
-    		this.UnivHosp;
-    		this.HighRisk;
-    		this.LOS;
-    		this.LnLOS;
-    		this.NPO;
-    		this.PreOptimize;
+    		model.ptAge= getAge(pt);
+    		model.MaleGender= getMaleGender(pt);
+    		model.WhiteRace;//--Not available--
+    		model.BlackRace;//--Not available--
+    		model.Ascites;//Condition
+    		model.CHF;//Condition
+    		model.DM;//Condition - "system":"http://snomed.info/sct"+"code":"46635009"+ "display":"Type 1 diabetes mellitus" or  	//"system":"http://snomed.info/sct","code":"44054006","display":"Type 2 diabetes mellitus"
+    		model.CANCER;//Condition
+    		model.HTN;//Condition
+    		model.EmerAdmit;//encounter.hospitalization.admitSource=emd
+    		model.RegAdmit;//encounter.hospitalization.admitSource!=emd
+    		model.Procedure_i;//procedure
+    		model.IVD;//Maybe? FHIR has codes for this but cant figure out where they are used.
+    		model.Albumin;//Observation
+    		model.AlkPhos;//Observation
+    		model.AST/ALT;//Observation
+    		model.BUN;//Observation
+    		model.Calcium;//Observation
+    		model.Bicarb;//Observation
+    		model.Cr;//Observation
+    		model.HCT;//Observation
+    		model.INR;//Observation
+    		model.KPlus;//Observation
+    		model.Sodium;//Observation
+    		model.PLT;//Observation
+    		model.PTT;//Observation
+    		model.TBili;//Observation
+    		model.WBC;//Observation
+    		model.TransufeD;//Observation
+    		model.DxImg;//Observation
+    		model.KatzScore;//Observation
+    		model.StoolPlus;//Observation
+    		model.BMI;//Observation
+    		model.HR;//Observation
+    		model.O2Sat;//Observation
+    		model.RR;//Observation
+    		model.DBP;//Observation
+    		model.SBP;//Observation
+    		model.TEMP//Observation
+    		model.PainScore;//-Observation - LOINC Code 72102-7 : Pain score [KOOS]
+    		model.Complexity(RVUs);//Calculated
+    		model.UnivHosp;//encounter.location.status = active
+    		model.HighRisk;//ecounter and procedure
+    		model.LOS;//encounter
+    		model.LnLOS;//calculated 
+    		model.NPO;//--Not available--
+    		model.PreOptimize;//encounter and procedure
        
-    		f(this);
+    		f(model);
     	});
+    }
+    function getMedicationOrder(f){
+    	model.medications=[];
+    	smart.patient.api.fetchAllWithReferences({type: "MedicationOrder"},["MedicationOrder.medicationReference"]).then(function(results, refs) {
+    		  results.forEach(function(prescription){
+    		    if (prescription.medicationCodeableConcept) {
+    		    	model.medications.push(prescription.medicationCodeableConcept.coding);
+    		    } else if (prescription.medicationReference) {
+    		        var med = refs(prescription, prescription.medicationReference);
+    		        model.medications.push(med && med.code.coding || []);
+    		    }
+    		  });
+    		  f(model);
+    		});
+    }
+    function getConditions(f){
+    	model.conditions=[];
+    	smart.patient.api.fetchAllWithReferences({type: 'Condition'}).then(function(results) {
+    		  results.forEach(function(prescription){
+    			  model.medications.push(prescription.code.coding);
+    		  });
+    		  f(model);
+    		});
     }
     function getAge(pt){
         	if(pt.birthDate){
