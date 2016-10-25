@@ -17,7 +17,7 @@ var model = new function() {
     		model.IVD;//Maybe? FHIR has codes for this but cant figure out where they are used.
     		model.Albumin;//Observation
     		model.AlkPhos;//Observation
-    		model.AST/ALT;//Observation
+    		model.ASTALT;//Observation
     		model.BUN;//Observation
     		model.Calcium;//Observation
     		model.Bicarb;//Observation
@@ -42,14 +42,14 @@ var model = new function() {
     		model.SBP;//Observation
     		model.TEMP//Observation
     		model.PainScore;//-Observation - LOINC Code 72102-7 : Pain score [KOOS]
-    		model.Complexity(RVUs);//Calculated
+    		model.ComplexityRVUs;//Calculated
     		model.UnivHosp;//encounter.location.status = active
     		model.HighRisk;//ecounter and procedure
     		model.LOS;//encounter
     		model.LnLOS;//calculated 
     		model.NPO;//--Not available--
     		model.PreOptimize;//encounter and procedure
-       
+
     		f(model);
     	});
     }
@@ -77,6 +77,7 @@ var model = new function() {
     		});
     }
     function getAge(pt){
+    		var defaultVal = 18;
         	if(pt.birthDate){
         		
         		var dob = new Date();
@@ -91,10 +92,11 @@ var model = new function() {
         	    }
         	    return age;
         	}else{
-        		return null;
+        		return defaultVal;
         	}   	
     }
     function getMaleGender(pt){
+    	var defaultVal = 1;
     	if(pt.gender){
     		if(pt.gender.localeCompare('female')==0){
     			return 0;
@@ -102,7 +104,7 @@ var model = new function() {
     			return 1;
     		}
     	}else{
-    		return null;
+    		return defaultVal;
     	}
     }
    
