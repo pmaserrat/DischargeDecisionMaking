@@ -7,10 +7,8 @@ var model = new function() {
     		model.WhiteRace;//--Not available--
     		model.BlackRace;//--Not available--
     		model.Ascites;//Condition
-    		model.CHF;//Condition
-    		model.DM;//Condition - "system":"http://snomed.info/sct"+"code":"46635009"+ "display":"Type 1 diabetes mellitus" or  	//"system":"http://snomed.info/sct","code":"44054006","display":"Type 2 diabetes mellitus"
-    		model.CANCER;//Condition
-    		model.HTN;//Condition
+    		model.CHF;//Condition  http://snomed.info/sct 42343007
+    		model.CANCER;//Condition http://snomed.info/sct 254837009 399068003 363358000
     		model.EmerAdmit;//encounter.hospitalization.admitSource=emd
     		model.RegAdmit;//encounter.hospitalization.admitSource!=emd
     		model.Procedure_i;//procedure
@@ -50,7 +48,8 @@ var model = new function() {
     		model.NPO;//--Not available--
     		model.PreOptimize;//encounter and procedure
 
-    		f(model);
+    		//set all variable to do with Condition resource
+    		getConditions(f);
     	});
     }
     function getMedicationOrder(f){
@@ -69,15 +68,24 @@ var model = new function() {
     }
     function getConditions(f){
     	model.conditions=[];
+    	model.DM=0;//default
+		model.HTN=0;//default
     	smart.patient.api.fetchAllWithReferences({type: 'Condition'}).then(function(results) {
     		  results.forEach(function(prescription){
-    			  model.medications.push(prescription.code.coding);
+    			 if((prescription.code.coding[0].code == 46635009 && prescription.code.coding[0].system.localeCompare('http://snomed.info/sct')==0) || (prescription.code.coding[0].code == 44054006 && prescription.code.coding[0].system.localeCompare('http://snomed.info/sct')==0)){
+    				 model.DM=1;
+    			 }
+    			 if(prescription.code.coding[0].code == 59621000 && prescription.code.coding[0].system.localeCompare('http://snomed.info/sct')==0){
+    				 model.HTN=1;
+    			 }
+    			 // model.medications.push(prescription.code.coding);
     		  });
     		  f(model);
     		});
     }
     function getAge(pt){
     		var defaultVal = 18;
+    		
         	if(pt.birthDate){
         		
         		var dob = new Date();
