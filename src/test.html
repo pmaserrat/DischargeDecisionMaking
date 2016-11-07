@@ -8,6 +8,8 @@
 	function displayModel (model) {
 	  document.getElementById('ptAge').innerHTML = model.ptAge;
 		document.getElementById('MaleGender').innerHTML = model.MaleGender;
+		document.getElementById('DM').innerHTML = model.DM;
+		document.getElementById('HTN').innerHTML = model.HTN;
 		
 	}
 
@@ -18,7 +20,7 @@
 	// Create a Global FHIR client (server URL, patient id in `demo`)
 	smart = FHIR.client({
 	    serviceUrl: "http://polaris.i3l.gatech.edu:8080/fhir-omopv5/base",
-	    patientId: "523050"
+	    patientId: "195"//195-Hypertension  1-diabetes
 	}),
 	model.init(displayModel);
 	
@@ -32,6 +34,8 @@
 <body>
 ptAge: <text id="ptAge"></text></br>
 MaleGender: <text id="MaleGender"></text></br>
+DM-diabetes: <text id="DM"></text></br>
+HTN-Hypertension: <text id="HTN"></text></br>
 <div id="med_list"></div>
 </body>
 </html>
