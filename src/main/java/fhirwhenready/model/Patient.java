@@ -8,13 +8,16 @@ public class Patient {
 	private String address;
 	private String dob;
 	private String gender;
+	private String id;
 	public Patient(ca.uhn.fhir.model.dstu2.resource.Patient patient) {
 		firstName=patient.getNameFirstRep().getGivenAsSingleString();
 		lastName= patient.getNameFirstRep().getFamilyAsSingleString();
 		AddressDt addressdt= patient.getAddressFirstRep();
 		address = addressdt.getLineFirstRep() +" "+addressdt.getCity()+" "+addressdt.getState()+" "+addressdt.getPostalCode();
-		dob = patient.getBirthDate().toString();
+		if(patient.getBirthDate() !=null)
+			dob = patient.getBirthDate().toString();
 		gender =patient.getGender();
+		id = patient.getId().getIdPart()+"";
 	}
 	public String getFirstName() {
 		return firstName;
@@ -45,5 +48,11 @@ public class Patient {
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 }

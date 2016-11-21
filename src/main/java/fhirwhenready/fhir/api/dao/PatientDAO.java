@@ -1,5 +1,8 @@
 package fhirwhenready.fhir.api.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.dstu2.resource.Bundle;
 import ca.uhn.fhir.model.dstu2.resource.Bundle.Entry;
@@ -24,6 +27,27 @@ public class PatientDAO {
 	
 		Patient patient = (Patient)results.getEntryFirstRep().getResource();
 		return patient;
+	}
+	public static List<fhirwhenready.model.Patient> listPatients(){
+		FhirContext ctx = FhirContext.forDstu2();
+		IGenericClient client = ctx.newRestfulGenericClient(serverBase);
+		 
+		// Perform a search
+		Bundle results = client
+		      .search()
+		      .forResource(Patient.class)
+		      .where((Patient.NAME.matches().value("smith")))
+		      .returnBundle(ca.uhn.fhir.model.dstu2.resource.Bundle.class)
+		      .execute();
+		
+		ArrayList<fhirwhenready.model.Patient> patients = new ArrayList<fhirwhenready.model.Patient>();
+		for(Entry entry: results.getEntry()){
+			Patient patient = (Patient)entry.getResource();
+			patients.add(new fhirwhenready.model.Patient(patient));
+		}
+		
+		
+		return patients;
 	}
 	public static Patient findByName(String lastName, String firstName){
 		FhirContext ctx = FhirContext.forDstu2();

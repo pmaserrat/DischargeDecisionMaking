@@ -1,6 +1,13 @@
 package fhirwhenready.fhir.apiimpl;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.dstu2.composite.AddressDt;
@@ -14,17 +21,13 @@ import fhirwhenready.fhir.api.dao.EncounterDAO;
 import fhirwhenready.fhir.api.dao.PatientDAO;
 import fhirwhenready.fhir.api.dao.PractitionerDAO;
 
+
 public class FhirImpl {
-	public String sayHello="nothing";
+	public List<fhirwhenready.model.Patient> patientList=null;
 	public fhirwhenready.model.Patient selectedPatient = null;
-	public fhirwhenready.model.Patient getSelectedPatient() {
-		return selectedPatient;
-	}
-	public void setSelectedPatient(fhirwhenready.model.Patient selectedPatient) {
-		this.selectedPatient = selectedPatient;
-	}
 	public FhirImpl(){
-		selectedPatient = new fhirwhenready.model.Patient(PatientDAO.findByName("Foster"));	
+		selectedPatient = new fhirwhenready.model.Patient(PatientDAO.findByName("Shannon smith"));	
+		patientList = PatientDAO.listPatients();
 	}
 	public static void main(String[] args){
 		
@@ -48,10 +51,24 @@ public class FhirImpl {
 		}
 		
 	}
-	public String getSayHello() {
-		return sayHello;
+	public List<fhirwhenready.model.Patient> getPatientList() {
+		return patientList;
 	}
-	public void setSayHello(String test){
-		sayHello=test;
+	public void setPatientList(List<fhirwhenready.model.Patient> patientList) {
+		this.patientList = patientList;
+	}
+
+	public fhirwhenready.model.Patient getSelectedPatient() {
+		return selectedPatient;
+	}
+	public void setSelectedPatient(fhirwhenready.model.Patient selectedPatient) {
+		this.selectedPatient = selectedPatient;
+	}
+	public void setSelectedPatientByID(String id){
+		for(fhirwhenready.model.Patient patient: patientList){
+			if(patient.getId().equals(id)){
+				setSelectedPatient(patient);
+			}
+		}
 	}
 }
