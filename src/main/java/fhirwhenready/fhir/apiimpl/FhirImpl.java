@@ -15,6 +15,17 @@ import fhirwhenready.fhir.api.dao.PatientDAO;
 import fhirwhenready.fhir.api.dao.PractitionerDAO;
 
 public class FhirImpl {
+	public String sayHello="nothing";
+	public fhirwhenready.model.Patient selectedPatient = null;
+	public fhirwhenready.model.Patient getSelectedPatient() {
+		return selectedPatient;
+	}
+	public void setSelectedPatient(fhirwhenready.model.Patient selectedPatient) {
+		this.selectedPatient = selectedPatient;
+	}
+	public FhirImpl(){
+		selectedPatient = new fhirwhenready.model.Patient(PatientDAO.findByName("Foster"));	
+	}
 	public static void main(String[] args){
 		
 		Patient patient = PatientDAO.findByName("Foster");	
@@ -36,5 +47,11 @@ public class FhirImpl {
 			System.out.println("Reason for visit: "+encounter.getReasonFirstRep().getText());
 		}
 		
+	}
+	public String getSayHello() {
+		return sayHello;
+	}
+	public void setSayHello(String test){
+		sayHello=test;
 	}
 }
