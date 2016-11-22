@@ -15,8 +15,8 @@
 	<div class="row">
 		<div class="col-xs-12 col-centered text-center">
 				<p class="appHeader">Hospital Discharge Decision Making</p>
-				<p>Team: FHIR When Ready</p>
-				<p>Reece Karge, Joshua Kaelin, Paul Maserrat</p>
+				<p class="info">Team: FHIR When Ready</p>
+				<p class="info">Reece Karge, Joshua Kaelin, Paul Maserrat</p>
 		</div>
 	</div>
 

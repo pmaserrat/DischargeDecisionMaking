@@ -1,9 +1,15 @@
 body {
-	background-image: url("images/background1.jpeg");
+	background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('images/background1.jpeg');
+   
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-color:black;
 }
-
+.info{
+	color:white;
+	font-weight:bold;
+	font-size:20px;
+}
 .col-centered{
     float: none!important;
     margin: 0 auto;
@@ -31,6 +37,7 @@ body {
 .appHeader{
 	font-size: 40px;
 	font-weight: bold;
+	color:white;
 }
 
 .patientSelect{
