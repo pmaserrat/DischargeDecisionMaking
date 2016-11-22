@@ -8,5 +8,5 @@
 *.swp
 node_modules
 /.gradle/
-/build/
+/build//bin/
 /.classpath
