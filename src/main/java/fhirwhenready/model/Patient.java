@@ -12,8 +12,11 @@ public class Patient {
 	public Patient(ca.uhn.fhir.model.dstu2.resource.Patient patient) {
 		firstName=patient.getNameFirstRep().getGivenAsSingleString();
 		lastName= patient.getNameFirstRep().getFamilyAsSingleString();
-		AddressDt addressdt= patient.getAddressFirstRep();
-		address = addressdt.getLineFirstRep() +" "+addressdt.getCity()+" "+addressdt.getState()+" "+addressdt.getPostalCode();
+		if( patient.getAddressFirstRep()!=null){
+			AddressDt addressdt= patient.getAddressFirstRep();
+			if(addressdt.getLineFirstRep()!=null && !addressdt.getLineFirstRep().equals("null") && addressdt.getCity()!=null && !addressdt.getCity().equals("null"))
+				address = addressdt.getLineFirstRep() +" "+addressdt.getCity()+" "+addressdt.getState()+" "+addressdt.getPostalCode();
+		}
 		if(patient.getBirthDate() !=null)
 			dob = patient.getBirthDate().toString();
 		gender =patient.getGender();
