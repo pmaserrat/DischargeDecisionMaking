@@ -3,18 +3,49 @@
 
 <html>
 <head>
+	<title>Discharge Decision Making</title>
+	<link rel="stylesheet" href="global.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/></script>
+
 </head>
-<form id="selectpatientform"  method="POST" action="${pageContext.request.contextPath }/patient">
-Select Patient:
-<select name="selectPatientID" id="selectPatientID" size="1" onchange="this.form.submit()">
-    <c:forEach items="${fhir.patientList}" var="patient">
-        <option value="${patient.id}" ${patient.id == fhir.selectedPatient.id ? 'selected="selected"' : ''}>${patient.firstName} ${patient.lastName}</option>
-    </c:forEach>
-</select>
-</form>
-<h1>Patient Information</h1>
-<p><b>Name:</b> ${fhir.selectedPatient.firstName} ${fhir.selectedPatient.lastName}</p>
-<p><b>Gender:</b> ${fhir.selectedPatient.gender}</p>
-<p><b>Date of Birth:</b> ${fhir.selectedPatient.dob}</p>
-<p><b>Address:</b> ${fhir.selectedPatient.address}</p>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-centered text-center">
+				<p class="appHeader">Hospital Discharge Decision Making</p>
+				<p>Team: FHIR When Ready</p>
+				<p>Reece Karge, Joshua Kaelin, Paul Maserrat</p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-6 formPanel col-centered">
+			<form id="selectpatientform"  method="POST" action="${pageContext.request.contextPath }/patient">
+				<div class="row">
+					<div class="col-xs-4">
+						<p class="patientSelect">Select Patient:</p>
+					</div>
+					<div class="col-xs-8">
+						<select name="selectPatientID" id="selectPatientID" size="1" onchange="this.form.submit()">
+						    <c:forEach items="${fhir.patientList}" var="patient">
+						        <option value="${patient.id}" ${patient.id == fhir.selectedPatient.id ? 'selected="selected"' : ''}>${patient.firstName} ${patient.lastName}</option>
+						    </c:forEach>
+						</select>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>			
+	<div class="row">
+		<div class="col-xs-6 formPanel col-centered">
+			<p class="patientInfo">Patient Information</p>
+			<p><b>Name:</b> ${fhir.selectedPatient.firstName} ${fhir.selectedPatient.lastName}</p>
+			<p><b>Gender:</b> ${fhir.selectedPatient.gender}</p>
+			<p><b>Date of Birth:</b> ${fhir.selectedPatient.dob}</p>
+			<p><b>Address:</b> ${fhir.selectedPatient.address}</p>
+		</div>
+	</div>
+</div>
 </html>

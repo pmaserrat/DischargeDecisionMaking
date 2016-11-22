@@ -1,0 +1,19 @@
+body {
+	background-image: url("../images/background1.jpeg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.col-centered{
+    float: none!important;
+    margin: 0 auto;
+}
+
+.container{
+	padding-top:30px;
+}
+
+.text-center{
+	text-align:center;
+}
+

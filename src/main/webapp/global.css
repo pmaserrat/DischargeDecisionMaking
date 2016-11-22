@@ -1,0 +1,46 @@
+body {
+	background-image: url("images/background1.jpeg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.col-centered{
+    float: none!important;
+    margin: 0 auto;
+}
+
+.container{
+	padding-top:30px;
+}
+
+.text-center{
+	text-align:center;
+}
+
+.formPanel{
+	margin-top:40px;
+	padding:20px;
+	background-color: #ffffff;
+	box-shadow
+	-webkit-box-shadow: 6px 5px 6px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 6px 5px 6px 0px rgba(0,0,0,0.75);
+	box-shadow: 6px 5px 6px 0px rgba(0,0,0,0.75);
+	border-radius:5px;
+}
+
+.appHeader{
+	font-size: 40px;
+	font-weight: bold;
+}
+
+.patientSelect{
+	font-size:20px;
+}
+
+.patientInfo{
+	font-size:30px;
+}
+
+#selectpatientform{
+	margin-bottom:0px;
+}
