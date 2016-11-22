@@ -17,7 +17,7 @@ public class PatientServlet extends HttpServlet{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+    @Override
 	protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
 
@@ -35,5 +35,15 @@ public class PatientServlet extends HttpServlet{
         }
         
 	}
+	@Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        FhirImpl fhir = (FhirImpl) request.getSession().getAttribute("fhir");
+        if (fhir == null) {
+        	fhir = new FhirImpl();
+        	request.getSession().setAttribute("fhir", fhir);
+        }
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
+    }
 
 }
