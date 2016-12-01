@@ -11,39 +11,43 @@ import javax.servlet.http.HttpServletResponse;
 import fhirwhenready.fhir.apiimpl.FhirImpl;
 
 @WebServlet("patient")
-public class PatientServlet extends HttpServlet{
+public class PatientServlet extends HttpServlet {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-    @Override
-	protected void doPost(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
 
-        String patientID = request.getParameter("selectPatientID");
-        FhirImpl fhir = (FhirImpl) request.getSession().getAttribute("fhir");
-
-        if (fhir == null) {
-        	fhir = new FhirImpl();
-        	request.getSession().setAttribute("fhir", fhir);
-        } else {
-            if(patientID!=null){
-            	fhir.setSelectedPatientByID(patientID);
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
-            }
-        }
-        
-	}
 	@Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        FhirImpl fhir = (FhirImpl) request.getSession().getAttribute("fhir");
-        if (fhir == null) {
-        	fhir = new FhirImpl();
-        	request.getSession().setAttribute("fhir", fhir);
-        }
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
-    }
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String patientID = request.getParameter("selectPatientID");
+		FhirImpl fhir = (FhirImpl) request.getSession().getAttribute("fhir");
+
+		if (fhir == null) {
+			fhir = new FhirImpl();
+			request.getSession().setAttribute("fhir", fhir);
+		} else {
+			if (patientID != null) {
+				fhir.setSelectedPatientByID(patientID);
+				fhir.setPatientEncounters(patientID);
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
+			}
+		}
+
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		FhirImpl fhir = (FhirImpl) request.getSession().getAttribute("fhir");
+		if (fhir == null) {
+			fhir = new FhirImpl();
+			request.getSession().setAttribute("fhir", fhir);
+		}
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
+	}
 
 }
