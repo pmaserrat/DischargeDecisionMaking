@@ -25,9 +25,11 @@ import fhirwhenready.fhir.api.dao.PractitionerDAO;
 public class FhirImpl {
 	public List<fhirwhenready.model.Patient> patientList=null;
 	public fhirwhenready.model.Patient selectedPatient = null;
+	public String userMessage=null;
 	public FhirImpl(){
 		selectedPatient = new fhirwhenready.model.Patient(PatientDAO.findByName("Shannon smith"));	
 		patientList = PatientDAO.listPatients();
+		setUserMessage("Default");
 	}
 	public static void main(String[] args){
 		
@@ -70,5 +72,11 @@ public class FhirImpl {
 				setSelectedPatient(patient);
 			}
 		}
+	}
+	public String getUserMessage() {
+		return userMessage;
+	}
+	public void setUserMessage(String userMessage) {
+		this.userMessage = userMessage;
 	}
 }
