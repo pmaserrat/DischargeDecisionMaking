@@ -28,22 +28,17 @@ import org.apache.http.message.BasicNameValuePair;
 
 import fhirwhenready.fhir.apiimpl.FhirImpl;
 
-<<<<<<< HEAD
 public class PatientServlet extends HttpServlet{
 	                   
 	String ehrAuthURL="https://authorization.sandboxcerner.com/realms/d075cf8b-3261-481d-97e5-ba6c48d3b41f/protocols/smart/authorize";
 	
-=======
-@WebServlet("patient")
-public class PatientServlet extends HttpServlet {
-
->>>>>>> branch 'master' of https://github.gatech.edu/gt-hit-fall2016/Discharge-Decision-Making---FHIR-When-Ready.git
-	/**
+     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-<<<<<<< HEAD
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
         String patientID = request.getParameter("selectPatientID");
         FhirImpl fhir = (FhirImpl) request.getSession().getAttribute("fhir");
 
@@ -103,40 +98,6 @@ public class PatientServlet extends HttpServlet {
         request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
     
-    
-    
-=======
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
 
-		String patientID = request.getParameter("selectPatientID");
-		FhirImpl fhir = (FhirImpl) request.getSession().getAttribute("fhir");
-
-		if (fhir == null) {
-			fhir = new FhirImpl();
-			request.getSession().setAttribute("fhir", fhir);
-		} else {
-			if (patientID != null) {
-				fhir.setSelectedPatientByID(patientID);
-				fhir.setPatientEncounters(patientID);
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
-			}
-		}
-
-	}
-
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		FhirImpl fhir = (FhirImpl) request.getSession().getAttribute("fhir");
-		if (fhir == null) {
-			fhir = new FhirImpl();
-			request.getSession().setAttribute("fhir", fhir);
-		}
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
-	}
->>>>>>> branch 'master' of https://github.gatech.edu/gt-hit-fall2016/Discharge-Decision-Making---FHIR-When-Ready.git
 
 }
