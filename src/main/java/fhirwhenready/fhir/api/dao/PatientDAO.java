@@ -40,7 +40,7 @@ public class PatientDAO {
 		ArrayList<fhirwhenready.model.Patient> patients = new ArrayList<fhirwhenready.model.Patient>();
 		for(Entry entry: results.getEntry()){
 			Patient patient = (Patient)entry.getResource();
-			patients.add(new fhirwhenready.model.Patient(patient));
+			patients.add(new fhirwhenready.model.Patient(client,patient));
 		}
 		
 		

@@ -16,7 +16,6 @@ import fhirwhenready.fhir.api.dao.PatientDAO;
 public class FhirImpl {
 	public List<fhirwhenready.model.Patient> patientList = null;
 	public fhirwhenready.model.Patient selectedPatient = null;
-	public List<fhirwhenready.model.Encounter> encounterList = null;
 
 	public String ehrTokenURL=null;
 	public String ehrAuthURL=null;
@@ -73,9 +72,8 @@ public class FhirImpl {
 	}
 	public void getData(){
 	
-		selectedPatient = new fhirwhenready.model.Patient(PatientDAO.findByName(client,"Shannon smith"));	
+		selectedPatient = new fhirwhenready.model.Patient(client,PatientDAO.findByName(client,"Shannon smith"));	
 		patientList = PatientDAO.listPatients(client);
-	    encounterList =  EncounterDAO.findByPatientID(client,selectedPatient.getId());
 		
 	}
 	public fhirwhenready.model.Patient getSelectedPatient() {
@@ -141,13 +139,5 @@ public class FhirImpl {
 	}
 
 
-	public List<fhirwhenready.model.Encounter> getEncounterList() {
-		return encounterList;
-	}
-
-
-	public void setEncounterList(List<fhirwhenready.model.Encounter> encounterList) {
-		this.encounterList = encounterList;
-	}
 	
 }

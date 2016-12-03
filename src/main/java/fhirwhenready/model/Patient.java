@@ -1,6 +1,10 @@
 package fhirwhenready.model;
 
+import java.util.List;
+
 import ca.uhn.fhir.model.dstu2.composite.AddressDt;
+import ca.uhn.fhir.rest.client.IGenericClient;
+import fhirwhenready.fhir.api.dao.EncounterDAO;
 
 public class Patient {
 	private String firstName;
@@ -8,8 +12,9 @@ public class Patient {
 	private String address;
 	private String dob;
 	private String gender;
+	public List<fhirwhenready.model.Encounter> encounterList = null;
 	private String id;
-	public Patient(ca.uhn.fhir.model.dstu2.resource.Patient patient) {
+	public Patient(IGenericClient client,ca.uhn.fhir.model.dstu2.resource.Patient patient) {
 		firstName=patient.getNameFirstRep().getGivenAsSingleString();
 		lastName= patient.getNameFirstRep().getFamilyAsSingleString();
 		if( patient.getAddressFirstRep()!=null){
@@ -21,6 +26,8 @@ public class Patient {
 			dob = patient.getBirthDate().toString();
 		gender =patient.getGender();
 		id = patient.getId().getIdPart()+"";
+		
+	    encounterList =  EncounterDAO.findByPatientID(client,getId());
 	}
 	public String getFirstName() {
 		return firstName;
@@ -57,5 +64,14 @@ public class Patient {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public List<fhirwhenready.model.Encounter> getEncounterList() {
+		return encounterList;
+	}
+
+
+	public void setEncounterList(List<fhirwhenready.model.Encounter> encounterList) {
+		this.encounterList = encounterList;
 	}
 }
