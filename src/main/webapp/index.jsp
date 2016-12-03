@@ -55,10 +55,13 @@
 			</c:forEach>
 		</div>
 	</div>
+<<<<<<< HEAD
 	<div class="row">
 		<div class="col-xs-6 formPanel col-centered">
 			<p><b>token:</b> ${fhir.userMessage}</p>
 		</div>
 	</div>
+=======
+>>>>>>> branch 'master' of https://github.gatech.edu/gt-hit-fall2016/Discharge-Decision-Making---FHIR-When-Ready.git
 </div>
 </html>

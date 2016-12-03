@@ -10,3 +10,4 @@ node_modules
 /.gradle/
 /build//bin/
 /gradle//.classpath
+/build/
