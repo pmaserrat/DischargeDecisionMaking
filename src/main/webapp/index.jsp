@@ -47,5 +47,18 @@
 			<p><b>Address:</b> ${fhir.selectedPatient.address}</p>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-xs-6 formPanel col-centered">
+			<p class="patientInfo">Encounters</p>
+			<c:forEach items="${fhir.encountersList}" var="encounter">
+				<p><b>Encounter:</b> ${encounter}</p>
+			</c:forEach>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6 formPanel col-centered">
+			<p><b>token:</b> ${fhir.userMessage}</p>
+		</div>
+	</div>
 </div>
 </html>

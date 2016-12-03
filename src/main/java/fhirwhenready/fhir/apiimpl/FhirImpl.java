@@ -17,6 +17,8 @@ import ca.uhn.fhir.model.dstu2.resource.Encounter;
 import ca.uhn.fhir.model.dstu2.resource.Patient;
 import ca.uhn.fhir.model.dstu2.resource.Practitioner;
 import ca.uhn.fhir.rest.client.IGenericClient;
+import ca.uhn.fhir.rest.client.IRestfulClientFactory;
+import ca.uhn.fhir.rest.client.interceptor.BearerTokenAuthInterceptor;
 import fhirwhenready.fhir.api.dao.EncounterDAO;
 import fhirwhenready.fhir.api.dao.PatientDAO;
 import fhirwhenready.fhir.api.dao.PractitionerDAO;
@@ -25,41 +27,33 @@ import fhirwhenready.fhir.api.dao.PractitionerDAO;
 public class FhirImpl {
 	public List<fhirwhenready.model.Patient> patientList=null;
 	public fhirwhenready.model.Patient selectedPatient = null;
+	public String ehrTokenURL=null;
+	public String ehrAuthURL=null;
+	public IGenericClient client=null;
+	public String ehrBaseURL="";
+	public String launch="";
+	public String token="";
 	public String userMessage=null;
 	public FhirImpl(){
-		selectedPatient = new fhirwhenready.model.Patient(PatientDAO.findByName("Shannon smith"));	
-		patientList = PatientDAO.listPatients();
-		setUserMessage("Default");
-	}
-	public static void main(String[] args){
-		
-		Patient patient = PatientDAO.findByName("Foster");	
-//		Patient patient = PatientDAO.findByID("1078075");
+	public List<fhirwhenready.model.Encounter> encounterList = null;
 
-		System.out.println("----------Patient-------");
-		System.out.println("ID:"+patient.getId());
-		System.out.println("Name: "+patient.getNameFirstRep().getNameAsSingleString());
-		System.out.println("Gender: "+patient.getGender());
-		AddressDt address= patient.getAddressFirstRep();
-		System.out.println("Address: "+address.getLineFirstRep() +" "+address.getCity()+" "+address.getState()+" "+address.getPostalCode());
-		System.out.println("DOB: "+patient.getBirthDate());
-		
-		System.out.println();
-		System.out.println("----------Encounters-------");
-		ArrayList<Encounter> encounters = (ArrayList<Encounter>) EncounterDAO.findByPatientID(patient.getId().getIdPart()+"");
-		for(Encounter encounter: encounters){
-			System.out.println("Location:"+encounter.getLocationFirstRep().getLocation());
-			System.out.println("Reason for visit: "+encounter.getReasonFirstRep().getText());
-		}
-		
+	public FhirImpl() {
+		selectedPatient = new fhirwhenready.model.Patient(PatientDAO.findByName("Shannon smith"));
+		patientList = PatientDAO.listPatients();
 	}
+
 	public List<fhirwhenready.model.Patient> getPatientList() {
 		return patientList;
 	}
 	public void setPatientList(List<fhirwhenready.model.Patient> patientList) {
 		this.patientList = patientList;
 	}
-
+	public void getData(){
+	
+		selectedPatient = new fhirwhenready.model.Patient(PatientDAO.findByName(token,ehrBaseURL,"Shannon smith"));	
+		patientList = PatientDAO.listPatients(token,ehrBaseURL);
+		
+	}
 	public fhirwhenready.model.Patient getSelectedPatient() {
 		return selectedPatient;
 	}
@@ -73,10 +67,59 @@ public class FhirImpl {
 			}
 		}
 	}
+	public List<fhirwhenready.model.Encounter> getEncounters() {
+		return encounterList;
+	}
+
+	public void setEncounters(List<fhirwhenready.model.Encounter> encounters) {
+		this.encounterList = encounters;
+	}
+
+	public void setPatientEncounters(String id) {
+
+		// setEncounters()
+	}
 	public String getUserMessage() {
 		return userMessage;
 	}
 	public void setUserMessage(String userMessage) {
 		this.userMessage = userMessage;
 	}
+	public String getEhrTokenURL() {
+		return ehrTokenURL;
+	}
+	public void setEhrTokenURL(String ehrTokenURL) {
+		this.ehrTokenURL = ehrTokenURL;
+	}
+	public String getEhrAuthURL() {
+		return ehrAuthURL;
+	}
+	public void setEhrAuthURL(String ehrAuthURL) {
+		this.ehrAuthURL = ehrAuthURL;
+	}
+	public String getEhrBaseURL() {
+		return ehrBaseURL;
+	}
+	public void setEhrBaseURL(String ehrBaseURL) {
+		this.ehrBaseURL = ehrBaseURL;
+	}
+	public String getLaunch() {
+		return launch;
+	}
+	public void setLaunch(String launch) {
+		this.launch = launch;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	public IGenericClient getClient() {
+		return client;
+	}
+	public void setClient(IGenericClient client) {
+		this.client=client;
+	}
+	
 }

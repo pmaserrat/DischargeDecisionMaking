@@ -12,4 +12,12 @@
     <servlet-name>Patient</servlet-name>
     <url-pattern>/patient</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>Authorize</servlet-name>
+    <servlet-class>fhirwhenready.servlet.AuthorizationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Authorize</servlet-name>
+    <url-pattern>/authorize</url-pattern>
+  </servlet-mapping>
 </web-app>
