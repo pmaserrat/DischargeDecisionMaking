@@ -51,17 +51,17 @@
 		<div class="col-xs-6 formPanel col-centered">
 			<p class="patientInfo">Encounters</p>
 			<c:forEach items="${fhir.encounterList}" var="encounter">
-				<p><b>Encounter:</b> ${encounter}</p>
+				<p><b>Encounter:</b></p>
+				<b>Date:</b> ${encounter.date}</br>
+				<b>Location:</b> ${encounter.location}</br>
+				<b>Reason:</b> ${encounter.reason}</br></br>
 			</c:forEach>
 		</div>
 	</div>
-<<<<<<< HEAD
 	<div class="row">
 		<div class="col-xs-6 formPanel col-centered">
 			<p><b>token:</b> ${fhir.userMessage}</p>
 		</div>
 	</div>
-=======
->>>>>>> branch 'master' of https://github.gatech.edu/gt-hit-fall2016/Discharge-Decision-Making---FHIR-When-Ready.git
 </div>
 </html>

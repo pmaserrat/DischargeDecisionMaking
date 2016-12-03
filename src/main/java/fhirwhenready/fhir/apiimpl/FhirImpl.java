@@ -75,6 +75,7 @@ public class FhirImpl {
 	
 		selectedPatient = new fhirwhenready.model.Patient(PatientDAO.findByName(client,"Shannon smith"));	
 		patientList = PatientDAO.listPatients(client);
+	    encounterList =  EncounterDAO.findByPatientID(client,selectedPatient.getId());
 		
 	}
 	public fhirwhenready.model.Patient getSelectedPatient() {

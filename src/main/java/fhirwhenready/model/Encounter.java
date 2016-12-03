@@ -12,9 +12,11 @@ public class Encounter {
 	private String reason;
 	private String location;
 	private String date;
+	private String status;
+	private String encounterClass;
 
 	public Encounter(ca.uhn.fhir.model.dstu2.resource.Encounter encounter) {
-		reason = encounter.getReasonFirstRep().getTextElement().toString();
+		reason = encounter.getReasonFirstRep().getText();
 		location = encounter.getLocationFirstRep().getLocation().getDisplayElement().toString();
 		date = encounter.getPeriod().getStartElement().getValueAsString();
 	}

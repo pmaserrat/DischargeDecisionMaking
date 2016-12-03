@@ -76,7 +76,7 @@ public class AuthorizationServlet extends HttpServlet {
 		request.getSession().setAttribute("fhir", fhir);
 
 //	      String url = ehrAuthURL+"?aud="+ehrBaseURL+"&launch="+launch+"&response_type=code&client_id=f6aad4f8-6bc1-40f3-83a6-5fcc9890cef0&scope=online_access&redirect_uri=http://sample-env-2.daeijvm4s6.us-east-1.elasticbeanstalk.com/patient";
-	      String url = ehrAuthURL+"?aud="+ehrBaseURL+"&launch="+launch+"&response_type=code&client_id=f6aad4f8-6bc1-40f3-83a6-5fcc9890cef0&scope=launch,online_access,user/Patient.read";
+	      String url = ehrAuthURL+"?state=15&aud="+ehrBaseURL+"&launch="+launch+"&response_type=code&client_id=f6aad4f8-6bc1-40f3-83a6-5fcc9890cef0&scope=launch,online_access,user/Patient.read";
 
 	   
 	      response.sendRedirect(url);

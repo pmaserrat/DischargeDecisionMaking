@@ -75,6 +75,7 @@ public class PatientServlet extends HttpServlet{
     	                                                 
     	params.add(new BasicNameValuePair("grant_type", "authorization_code"));
     	params.add(new BasicNameValuePair("code", code));
+    	params.add(new BasicNameValuePair("state", "15"));
     	params.add(new BasicNameValuePair("client_id", "f6aad4f8-6bc1-40f3-83a6-5fcc9890cef0"));
 //    	params.add(new BasicNameValuePair("redirect_uri ", "http://sample-env-2.daeijvm4s6.us-east-1.elasticbeanstalk.com/patient"));
     	httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));

@@ -13,10 +13,8 @@ import ca.uhn.fhir.rest.client.IGenericClient;
 public class EncounterDAO {
 	private static String serverBase = "https://fhir-open.sandboxcerner.com/may2015/d075cf8b-3261-481d-97e5-ba6c48d3b41f";
 	                                    
-	public static List<Encounter> findByPatientID(String id){
-		FhirContext ctx = FhirContext.forDstu2();
-		IGenericClient client = ctx.newRestfulGenericClient(serverBase);
-		 
+	public static List<fhirwhenready.model.Encounter> findByPatientID(IGenericClient client, String id){
+		
 		// Perform a search
 		Bundle results = client
 		      .search()
@@ -25,9 +23,9 @@ public class EncounterDAO {
 		      .returnBundle(ca.uhn.fhir.model.dstu2.resource.Bundle.class)
 		      .execute();
 
-		ArrayList<Encounter> encounters = new ArrayList<>();
+		ArrayList<fhirwhenready.model.Encounter> encounters = new ArrayList<>();
 		for(Entry entry: results.getEntry()){
-			encounters.add((Encounter)entry.getResource());
+			encounters.add(new fhirwhenready.model.Encounter((Encounter)entry.getResource()));
 			
 		}
 		return encounters;
