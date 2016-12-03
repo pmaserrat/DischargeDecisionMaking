@@ -17,6 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import ca.uhn.fhir.context.FhirContext;
+import ca.uhn.fhir.rest.client.IGenericClient;
+import ca.uhn.fhir.rest.client.interceptor.BearerTokenAuthInterceptor;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -91,9 +96,22 @@ public class PatientServlet extends HttpServlet{
     	   
     	}
     	JSONObject myObject = new JSONObject(result);
-        fhir.setUserMessage(myObject.getString("access_token"));
-        fhir.setToken(myObject.getString("access_token"));
+    	String token= myObject.getString("access_token");
+    	
+        fhir.setUserMessage(token);
+        fhir.setToken(token);
+        
+        
+        FhirContext ctx = FhirContext.forDstu2();
+		System.out.println("--------Token: "+token+"-------------");
+		BearerTokenAuthInterceptor authInterceptor = new BearerTokenAuthInterceptor(token);
+		System.out.println("--------ehrBaseURL: "+fhir.getEhrTokenURL()+"-------------");
+		IGenericClient client = ctx.newRestfulGenericClient(fhir.getEhrTokenURL());
+		client.registerInterceptor(authInterceptor);
+        fhir.setClient(client);
+
         fhir.getData();
+        
     	request.getSession().setAttribute("fhir", fhir);
         request.getRequestDispatcher("/index.jsp").forward(request, response);
     }

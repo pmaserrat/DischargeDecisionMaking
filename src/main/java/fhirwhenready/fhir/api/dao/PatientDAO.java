@@ -12,20 +12,10 @@ import ca.uhn.fhir.rest.client.interceptor.BearerTokenAuthInterceptor;
 import ca.uhn.fhir.rest.gclient.IRead;
 
 public class PatientDAO {
-	private static String serverBase = "https://fhir-open.sandboxcerner.com/may2015/d075cf8b-3261-481d-97e5-ba6c48d3b41f";
 	 
 	
-	public static Patient findByName(String token,String ehrBaseURL,String lastName){
-	 FhirContext ctx = FhirContext.forDstu2();
-		
-		System.out.println("--------Token: "+token+"-------------");
-		BearerTokenAuthInterceptor authInterceptor = new BearerTokenAuthInterceptor(token);
-
-		System.out.println("--------ehrBaseURL: "+ehrBaseURL+"-------------");
-		
-		IGenericClient client = ctx.newRestfulGenericClient(ehrBaseURL);
-
-		client.registerInterceptor(authInterceptor);
+	public static Patient findByName(IGenericClient client,String lastName){
+	
 		// Perform a search
 		Bundle results = client
 		      .search()
@@ -37,16 +27,8 @@ public class PatientDAO {
 		Patient patient = (Patient)results.getEntryFirstRep().getResource();
 		return patient;
 	}
-	public static List<fhirwhenready.model.Patient> listPatients(String token,String ehrBaseURL ){
-		 FhirContext ctx = FhirContext.forDstu2();
-			
-			System.out.println("--------Token: "+token+"-------------");
-			BearerTokenAuthInterceptor authInterceptor = new BearerTokenAuthInterceptor(token);
-
-			System.out.println("--------ehrBaseURL: "+ehrBaseURL+"-------------");
-			
-			IGenericClient client = ctx.newRestfulGenericClient(ehrBaseURL);
-			client.registerInterceptor(authInterceptor);
+	public static List<fhirwhenready.model.Patient> listPatients(IGenericClient client){
+		
 		// Perform a search
 		Bundle results = client
 		      .search()

@@ -50,7 +50,7 @@
 	<div class="row">
 		<div class="col-xs-6 formPanel col-centered">
 			<p class="patientInfo">Encounters</p>
-			<c:forEach items="${fhir.encountersList}" var="encounter">
+			<c:forEach items="${fhir.encounterList}" var="encounter">
 				<p><b>Encounter:</b> ${encounter}</p>
 			</c:forEach>
 		</div>

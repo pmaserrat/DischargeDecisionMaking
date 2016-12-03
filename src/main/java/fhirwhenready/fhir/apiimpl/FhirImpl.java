@@ -73,8 +73,8 @@ public class FhirImpl {
 	}
 	public void getData(){
 	
-		selectedPatient = new fhirwhenready.model.Patient(PatientDAO.findByName(token,ehrBaseURL,"Shannon smith"));	
-		patientList = PatientDAO.listPatients(token,ehrBaseURL);
+		selectedPatient = new fhirwhenready.model.Patient(PatientDAO.findByName(client,"Shannon smith"));	
+		patientList = PatientDAO.listPatients(client);
 		
 	}
 	public fhirwhenready.model.Patient getSelectedPatient() {
@@ -92,14 +92,6 @@ public class FhirImpl {
 			}
 		}
 	}
-	public List<fhirwhenready.model.Encounter> getEncounters() {
-		return encounterList;
-	}
-
-	public void setEncounters(List<fhirwhenready.model.Encounter> encounters) {
-		this.encounterList = encounters;
-	}
-
 	public void setPatientEncounters(String id) {
 
 		// setEncounters()
@@ -145,6 +137,16 @@ public class FhirImpl {
 	}
 	public void setClient(IGenericClient client) {
 		this.client=client;
+	}
+
+
+	public List<fhirwhenready.model.Encounter> getEncounterList() {
+		return encounterList;
+	}
+
+
+	public void setEncounterList(List<fhirwhenready.model.Encounter> encounterList) {
+		this.encounterList = encounterList;
 	}
 	
 }
