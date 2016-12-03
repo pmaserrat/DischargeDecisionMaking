@@ -106,8 +106,8 @@ public class PatientServlet extends HttpServlet{
         FhirContext ctx = FhirContext.forDstu2();
 		System.out.println("--------Token: "+token+"-------------");
 		BearerTokenAuthInterceptor authInterceptor = new BearerTokenAuthInterceptor(token);
-		System.out.println("--------ehrBaseURL: "+fhir.getEhrTokenURL()+"-------------");
-		IGenericClient client = ctx.newRestfulGenericClient(fhir.getEhrTokenURL());
+		System.out.println("--------ehrBaseURL: "+fhir.getEhrBaseURL()+"-------------");
+		IGenericClient client = ctx.newRestfulGenericClient(fhir.getEhrBaseURL());
 		client.registerInterceptor(authInterceptor);
         fhir.setClient(client);
 
