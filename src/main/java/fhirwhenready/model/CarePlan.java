@@ -16,8 +16,11 @@ public class CarePlan {
 	public String participantRole;
 	public String category;
 	public String context;
+	public String html;
 
 	public CarePlan(ca.uhn.fhir.model.dstu2.resource.CarePlan carePlan) {
+
+		html = carePlan.getText().getDivAsString();
 		carePlan.getActivityFirstRep().getDetail();
 		carePlan.getAuthor().get(0).getDisplayElement().getValue();
 		carePlan.getStatus();
@@ -81,6 +84,14 @@ public class CarePlan {
 
 	public void setContext(String context) {
 		this.context = context;
+	}
+
+	public String getHtml() {
+		return html;
+	}
+
+	public void setHtml(String html) {
+		this.html = html;
 	}
 
 }

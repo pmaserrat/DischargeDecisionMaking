@@ -19,8 +19,11 @@ public class Condition {
 	public String verificationStatus;
 	public String stage;
 	public String notes;
+	public String html;
 
 	public Condition(ca.uhn.fhir.model.dstu2.resource.Condition condition) {
+
+		html = condition.getText().getDivAsString();
 		condition.getAbatement().toString();
 		condition.getAsserter().getDisplayElement().getValue();
 		condition.getBodySiteFirstRep().getText();
@@ -111,5 +114,13 @@ public class Condition {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public String getHtml() {
+		return html;
+	}
+
+	public void setHtml(String html) {
+		this.html = html;
 	}
 }

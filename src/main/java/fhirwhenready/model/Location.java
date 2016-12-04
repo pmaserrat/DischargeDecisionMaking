@@ -14,8 +14,10 @@ public class Location {
 	public String name;
 	public String type;
 	public String telecom;
+	public String html;
 
 	public Location(ca.uhn.fhir.model.dstu2.resource.Location location) {
+		html = location.getText().getDivAsString();
 		location.getAddress().getText();
 		location.getDescription();
 		location.getName();

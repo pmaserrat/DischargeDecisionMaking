@@ -27,22 +27,15 @@ public class PatientDAO {
 		Patient patient = (Patient)results.getEntryFirstRep().getResource();
 		return patient;
 	}
-	public static List<fhirwhenready.model.Patient> listPatients(IGenericClient client){
+	public static List<fhirwhenready.model.Patient> listPatients(IGenericClient client, List<String> ids){
 		
-		// Perform a search
-		Bundle results = client
-		      .search()
-		      .forResource(Patient.class)
-		      .where((Patient.NAME.matches().value("smith")))
-		      .returnBundle(ca.uhn.fhir.model.dstu2.resource.Bundle.class)
-		      .execute();
+		
 		
 		ArrayList<fhirwhenready.model.Patient> patients = new ArrayList<fhirwhenready.model.Patient>();
-		for(Entry entry: results.getEntry()){
-			Patient patient = (Patient)entry.getResource();
-			patients.add(new fhirwhenready.model.Patient(client,patient));
-		}
 		
+		for(String id: ids){
+			patients.add(new fhirwhenready.model.Patient(findByID(client,id)));
+		}
 		
 		return patients;
 	}

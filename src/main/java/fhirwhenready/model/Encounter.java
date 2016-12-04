@@ -14,8 +14,9 @@ public class Encounter {
 	private String date;
 	private String status;
 	private String encounterClass;
-
+	public String html;
 	public Encounter(ca.uhn.fhir.model.dstu2.resource.Encounter encounter) {
+		html = encounter.getText().getDivAsString();
 		reason = encounter.getReasonFirstRep().getText();
 		location = encounter.getLocationFirstRep().getLocation().getDisplayElement().toString();
 		date = encounter.getPeriod().getStartElement().getValueAsString();

@@ -9,7 +9,61 @@
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/></script>
+<style>
+body {
+	
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-color:#3fb0ac;
+}
+.info{
+	color:white;
+	font-weight:bold;
+	font-size:20px;
+}
+.col-centered{
+    float: none!important;
+    margin: 0 auto;
+}
 
+.container{
+	padding-top:30px;
+}
+
+.text-center{
+	text-align:center;
+}
+
+.formPanel{
+	margin-top:40px;
+	padding:20px;
+	background-color: #dddfd4;
+	box-shadow
+	-webkit-box-shadow: 6px 5px 6px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 6px 5px 6px 0px rgba(0,0,0,0.75);
+	box-shadow: 6px 5px 6px 0px rgba(0,0,0,0.75);
+	border-radius:5px;
+}
+
+.appHeader{
+	font-size: 40px;
+	font-weight: bold;
+	color:white;
+}
+
+.patientSelect{
+	font-size:20px;
+}
+
+.patientInfo{
+	font-size:30px;
+}
+
+#selectpatientform{
+	margin-bottom:0px;
+}
+
+</style>
 </head>
 <div class="container">
 	<div class="row">
@@ -50,7 +104,7 @@
 	<div class="row">
 		<div class="col-xs-6 formPanel col-centered">
 			<p class="patientInfo">Encounters</p>
-			<c:forEach items="${fhir.selectedPatient.encounterList}" var="encounter">
+			<c:forEach items="${fhir.encounterList}" var="encounter">
 				<p><b>Encounter:</b></p>
 				<b>Date:</b> ${encounter.date}</br>
 				<b>Location:</b> ${encounter.location}</br>
@@ -60,8 +114,7 @@
 		<div class="col-xs-6 formPanel col-centered">
 			<p class="patientInfo">Procedures</p>
 			<c:forEach items="${fhir.procedureList}" var="procedure">
-				<p><b>Procedure:</b></p>
-				<b>Perform:</b> ${procedure.performer}</br>
+				${procedure.html}</br>
 			</c:forEach>
 		</div>
 	</div>
@@ -69,15 +122,13 @@
 		<div class="col-xs-6 formPanel col-centered">
 			<p class="patientInfo">Observations</p>
 			<c:forEach items="${fhir.observationList}" var="observation">
-				<p><b>Observation:</b></p>
-				<b>Perform:</b> ${observation.performer}</br>
+				${observation.html}</br>
 			</c:forEach>
 		</div>
 		<div class="col-xs-6 formPanel col-centered">
-			<p class="patientInfo">Procedures</p>
+			<p class="patientInfo">Conditions</p>
 			<c:forEach items="${fhir.conditionList}" var="condition">
-				<p><b>Condition:</b></p>
-				<b>Notes</b> ${condition.notes}</br>
+				${condition.html}</br>
 			</c:forEach>
 		</div>
 	</div>
@@ -85,21 +136,14 @@
 		<div class="col-xs-6 formPanel col-centered">
 			<p class="patientInfo">Care Plan</p>
 			<c:forEach items="${fhir.carePlanList}" var="carePlan">
-				<p><b>Care Plan:</b></p>
-				<b>Category:</b> ${carePlan.category}</br>
+				 ${carePlan.html}</br>
 			</c:forEach>
 		</div>
 		<div class="col-xs-6 formPanel col-centered">
 			<p class="patientInfo">Medication Administration</p>
 			<c:forEach items="${fhir.medicationAdministration}" var="adminsitration">
-				<p><b>Administration:</b></p>
-				<b>Dosage</b> ${adminsitration.dosage}</br>
+				${adminsitration.html}</br>
 			</c:forEach>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6 formPanel col-centered">
-			<p><b>token:</b> ${fhir.userMessage}</p>
 		</div>
 	</div>
 </div>

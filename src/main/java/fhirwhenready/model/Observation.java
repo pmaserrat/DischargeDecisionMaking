@@ -14,9 +14,10 @@ public class Observation {
 	private String status;
 	private String interpretation;
 	private String encounter;
-
+	private String html;
 	public Observation(ca.uhn.fhir.model.dstu2.resource.Observation observation) {
-		comment = observation.getComments();
+		html = observation.getText().getDivAsString();
+		comment = observation.getText().getDivAsString();
 		specimen = observation.getSpecimen().getDisplayElement().toString();
 		status = observation.getStatus();
 		interpretation = observation.getInterpretation().getText();
@@ -61,6 +62,14 @@ public class Observation {
 
 	public void setEncounter(String encounter) {
 		this.encounter = encounter;
+	}
+
+	public String getHtml() {
+		return html;
+	}
+
+	public void setHtml(String html) {
+		this.html = html;
 	}
 
 }

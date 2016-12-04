@@ -52,6 +52,7 @@ public class PatientServlet extends HttpServlet{
         } else {
             if(patientID!=null){
             	fhir.setSelectedPatientByID(patientID);
+            	fhir.updateData();
             }else{
             	
             }
@@ -99,7 +100,6 @@ public class PatientServlet extends HttpServlet{
     	JSONObject myObject = new JSONObject(result);
     	String token= myObject.getString("access_token");
     	
-        fhir.setUserMessage(token);
         fhir.setToken(token);
         
         

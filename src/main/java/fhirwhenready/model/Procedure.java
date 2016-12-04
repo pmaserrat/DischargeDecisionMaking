@@ -17,8 +17,10 @@ public class Procedure {
 	public String outcome;
 	public String performer;
 	public String reason;
+	public String html;
 
 	public Procedure(ca.uhn.fhir.model.dstu2.resource.Procedure procedure) {
+		html = procedure.getText().getDivAsString();
 		procedure.getBodySite().get(0).getText();
 		procedure.getCategory().getText();
 		procedure.getComplicationFirstRep().getText();
@@ -91,6 +93,14 @@ public class Procedure {
 
 	public void setPerformer(String performer) {
 		this.performer = performer;
+	}
+
+	public String getHtml() {
+		return html;
+	}
+
+	public void setHtml(String html) {
+		this.html = html;
 	}
 
 }

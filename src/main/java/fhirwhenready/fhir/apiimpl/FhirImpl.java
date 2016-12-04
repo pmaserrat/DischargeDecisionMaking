@@ -1,6 +1,7 @@
 package fhirwhenready.fhir.apiimpl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ca.uhn.fhir.model.dstu2.composite.AddressDt;
@@ -20,14 +21,16 @@ import fhirwhenready.fhir.api.dao.ProcedureDAO;
 import fhirwhenready.fhir.api.dao.PatientDAO;
 
 public class FhirImpl {
+	
 	public List<fhirwhenready.model.Patient> patientList = null;
 	public fhirwhenready.model.Patient selectedPatient = null;
-	
+	public List<String> patientIDs = Arrays.asList("4342008", "4342009","4342010","4342011","4342012");
 	public List<fhirwhenready.model.CarePlan> carePlanList = null;
 	public List<fhirwhenready.model.Condition> conditionList = null;
 	public List<fhirwhenready.model.MedicationAdministration> medicationAdministration = null;
 	public List<fhirwhenready.model.Observation> observationList = null;
 	public List<fhirwhenready.model.Procedure> procedureList = null;
+	public List<fhirwhenready.model.Encounter> encounterList = null;
 
 	public String ehrTokenURL=null;
 	public String ehrAuthURL=null;
@@ -35,10 +38,9 @@ public class FhirImpl {
 	public String ehrBaseURL="";
 	public String launch="";
 	public String token="";
-	public String userMessage=null;
 
 	public FhirImpl() {
-		
+	
 	}
 
 
@@ -82,14 +84,18 @@ public class FhirImpl {
 	public void setPatientList(List<fhirwhenready.model.Patient> patientList) {
 		this.patientList = patientList;
 	}
-	public void getData(){
-		selectedPatient = new fhirwhenready.model.Patient(client,PatientDAO.findByName(client,"Shannon smith"));	
-		patientList = PatientDAO.listPatients(client);
-		carePlanList = CarePlanDAO.findByPatientID(client, PatientDAO.findByName(client,"Shannon smith").toString());
-		conditionList = ConditionDAO.findByPatientID(client, PatientDAO.findByName(client,"Shannon smith").toString());
-		medicationAdministration = MedicationAdministrationDAO.findByPatientID(client,  PatientDAO.findByName(client,"Shannon smith").toString());
-		observationList = ObservationDAO.findByPatientID(client, PatientDAO.findByName(client,"Shannon smith").toString());
-		procedureList = ProcedureDAO.findByPatientID(client, PatientDAO.findByName(client,"Shannon smith").toString()); 
+	public void getData(){	
+		patientList = PatientDAO.listPatients(client,patientIDs);
+		selectedPatient = new fhirwhenready.model.Patient(PatientDAO.findByID(client, patientIDs.get(0)));
+		updateData();
+	}
+	public void updateData(){
+	    encounterList =  EncounterDAO.findByPatientID(client,selectedPatient.getId());
+		carePlanList = CarePlanDAO.findByPatientID(client, selectedPatient.getId());
+		conditionList = ConditionDAO.findByPatientID(client, selectedPatient.getId());
+		medicationAdministration = MedicationAdministrationDAO.findByPatientID(client,  selectedPatient.getId());
+		observationList = ObservationDAO.findByPatientID(client,selectedPatient.getId());
+		procedureList = ProcedureDAO.findByPatientID(client, selectedPatient.getId()); 
 	}
 	public fhirwhenready.model.Patient getSelectedPatient() {
 		return selectedPatient;
@@ -109,12 +115,6 @@ public class FhirImpl {
 	public void setPatientEncounters(String id) {
 
 		// setEncounters()
-	}
-	public String getUserMessage() {
-		return userMessage;
-	}
-	public void setUserMessage(String userMessage) {
-		this.userMessage = userMessage;
 	}
 	public String getEhrTokenURL() {
 		return ehrTokenURL;
@@ -201,6 +201,16 @@ public class FhirImpl {
 
 	public void setProcedureList(List<fhirwhenready.model.Procedure> procedureList) {
 		this.procedureList = procedureList;
+	}
+
+
+	public List<fhirwhenready.model.Encounter> getEncounterList() {
+		return encounterList;
+	}
+
+
+	public void setEncounterList(List<fhirwhenready.model.Encounter> encounterList) {
+		this.encounterList = encounterList;
 	}
 
 

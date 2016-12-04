@@ -15,9 +15,11 @@ public class MedicationAdministration {
 	private String practitioner;
 	private String prescription;
 	private String reason;
+	public String html;
 
 	public MedicationAdministration(
 			ca.uhn.fhir.model.dstu2.resource.MedicationAdministration medicationAdministration) {
+		html = medicationAdministration.getText().getDivAsString();
 		medicationAdministration.getDosage().getText();
 		medicationAdministration.getEffectiveTime().toString();
 		medicationAdministration.getMedication().toString();
