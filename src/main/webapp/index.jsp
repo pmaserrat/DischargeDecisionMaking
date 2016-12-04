@@ -57,6 +57,45 @@
 				<b>Reason:</b> ${encounter.reason}</br></br>
 			</c:forEach>
 		</div>
+		<div class="col-xs-6 formPanel col-centered">
+			<p class="patientInfo">Procedures</p>
+			<c:forEach items="${fhir.procedureList}" var="procedure">
+				<p><b>Procedure:</b></p>
+				<b>Perform:</b> ${procedure.performer}</br>
+			</c:forEach>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6 formPanel col-centered">
+			<p class="patientInfo">Observations</p>
+			<c:forEach items="${fhir.observationList}" var="observation">
+				<p><b>Observation:</b></p>
+				<b>Perform:</b> ${observation.performer}</br>
+			</c:forEach>
+		</div>
+		<div class="col-xs-6 formPanel col-centered">
+			<p class="patientInfo">Procedures</p>
+			<c:forEach items="${fhir.conditionList}" var="condition">
+				<p><b>Condition:</b></p>
+				<b>Notes</b> ${condition.notes}</br>
+			</c:forEach>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6 formPanel col-centered">
+			<p class="patientInfo">Care Plan</p>
+			<c:forEach items="${fhir.carePlanList}" var="carePlan">
+				<p><b>Care Plan:</b></p>
+				<b>Category:</b> ${carePlan.category}</br>
+			</c:forEach>
+		</div>
+		<div class="col-xs-6 formPanel col-centered">
+			<p class="patientInfo">Medication Administration</p>
+			<c:forEach items="${fhir.medicationAdministration}" var="adminsitration">
+				<p><b>Administration:</b></p>
+				<b>Dosage</b> ${adminsitration.dosage}</br>
+			</c:forEach>
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6 formPanel col-centered">

@@ -11,11 +11,23 @@ import ca.uhn.fhir.rest.client.IGenericClient;
 import ca.uhn.fhir.rest.client.IRestfulClientFactory;
 import ca.uhn.fhir.rest.client.interceptor.BearerTokenAuthInterceptor;
 import fhirwhenready.fhir.api.dao.EncounterDAO;
+import fhirwhenready.fhir.api.dao.CarePlanDAO;
+import fhirwhenready.fhir.api.dao.ConditionDAO;
+import fhirwhenready.fhir.api.dao.MedicationAdministrationDAO;
+import fhirwhenready.fhir.api.dao.ObservationDAO;
+import fhirwhenready.fhir.api.dao.ProcedureDAO;
+
 import fhirwhenready.fhir.api.dao.PatientDAO;
 
 public class FhirImpl {
 	public List<fhirwhenready.model.Patient> patientList = null;
 	public fhirwhenready.model.Patient selectedPatient = null;
+	
+	public List<fhirwhenready.model.CarePlan> carePlanList = null;
+	public List<fhirwhenready.model.Condition> conditionList = null;
+	public List<fhirwhenready.model.MedicationAdministration> medicationAdministration = null;
+	public List<fhirwhenready.model.Observation> observationList = null;
+	public List<fhirwhenready.model.Procedure> procedureList = null;
 
 	public String ehrTokenURL=null;
 	public String ehrAuthURL=null;
@@ -71,10 +83,13 @@ public class FhirImpl {
 		this.patientList = patientList;
 	}
 	public void getData(){
-	
 		selectedPatient = new fhirwhenready.model.Patient(client,PatientDAO.findByName(client,"Shannon smith"));	
 		patientList = PatientDAO.listPatients(client);
-		
+		carePlanList = CarePlanDAO.findByPatientID(client, PatientDAO.findByName(client,"Shannon smith").toString());
+		conditionList = ConditionDAO.findByPatientID(client, PatientDAO.findByName(client,"Shannon smith").toString());
+		medicationAdministration = MedicationAdministrationDAO.findByPatientID(client,  PatientDAO.findByName(client,"Shannon smith").toString());
+		observationList = ObservationDAO.findByPatientID(client, PatientDAO.findByName(client,"Shannon smith").toString());
+		procedureList = ProcedureDAO.findByPatientID(client, PatientDAO.findByName(client,"Shannon smith").toString()); 
 	}
 	public fhirwhenready.model.Patient getSelectedPatient() {
 		return selectedPatient;
@@ -136,6 +151,56 @@ public class FhirImpl {
 	}
 	public void setClient(IGenericClient client) {
 		this.client=client;
+	}
+
+
+	public List<fhirwhenready.model.CarePlan> getCarePlanList() {
+		return carePlanList;
+	}
+
+
+	public void setCarePlanList(List<fhirwhenready.model.CarePlan> carePlanList) {
+		this.carePlanList = carePlanList;
+	}
+
+
+	public List<fhirwhenready.model.Condition> getConditionList() {
+		return conditionList;
+	}
+
+
+	public void setConditionList(List<fhirwhenready.model.Condition> conditionList) {
+		this.conditionList = conditionList;
+	}
+
+
+	public List<fhirwhenready.model.MedicationAdministration> getMedicationAdministration() {
+		return medicationAdministration;
+	}
+
+
+	public void setMedicationAdministration(List<fhirwhenready.model.MedicationAdministration> medicationAdministration) {
+		this.medicationAdministration = medicationAdministration;
+	}
+
+
+	public List<fhirwhenready.model.Observation> getObservationList() {
+		return observationList;
+	}
+
+
+	public void setObservationList(List<fhirwhenready.model.Observation> observationList) {
+		this.observationList = observationList;
+	}
+
+
+	public List<fhirwhenready.model.Procedure> getProcedureList() {
+		return procedureList;
+	}
+
+
+	public void setProcedureList(List<fhirwhenready.model.Procedure> procedureList) {
+		this.procedureList = procedureList;
 	}
 
 

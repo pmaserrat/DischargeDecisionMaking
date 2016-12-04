@@ -18,6 +18,7 @@ public class Condition {
 	public String resourceName;
 	public String verificationStatus;
 	public String stage;
+	public String notes;
 
 	public Condition(ca.uhn.fhir.model.dstu2.resource.Condition condition) {
 		condition.getAbatement().toString();
@@ -29,6 +30,7 @@ public class Condition {
 		condition.getResourceName().toString();
 		condition.getVerificationStatus().toString();
 		condition.getStage().getSummary().getText();
+		condition.getNotes();
 	}
 
 	public String getAbatement() {
@@ -101,5 +103,13 @@ public class Condition {
 
 	public void setStage(String stage) {
 		this.stage = stage;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 }
