@@ -15,14 +15,11 @@ Hospital Discharge Decision Making.war
 War file included under Final Project > Final Application > Application > war  Just incase it is needed.
 
 ## Running on server
-###URL:
-https://code.cerner.com/developer/smart-on-fhir/apps
+###URL: https://code.cerner.com/developer/smart-on-fhir/apps
 
-###login email:
-reecekarge@gmail.com
+###login email: reecekarge@gmail.com
 
-###password:
-FhirTesting1!
+###password: FhirTesting1!
 
 Hit the "Begin Testing" button. When prompted for login type "portal" for both username and password. 
 
