@@ -12,6 +12,8 @@ Joshua Kaelin - preferred email: jkaelin3@gatech.edu
 SMART on FHIR JavaScript Client Library
 =======================================
 
+War file included under Final Project > Final Application > Application > war. Just incase it is needed.
+
 ## Building
 
 To build the library, you will need Grunt and NPM. Once you
