@@ -11,8 +11,8 @@ Joshua Kaelin - preferred email: jkaelin3@gatech.edu
 
 SMART on FHIR JavaScript Client Library
 =======================================
-
-War file included under Final Project > Final Application > Application > war. Just incase it is needed.
+Hospital Discharge Decision Making.war
+War file included under Final Project > Final Application > Application > war  Just incase it is needed.
 
 ## Building
 
